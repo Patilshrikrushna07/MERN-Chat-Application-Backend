@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm server.js",
-    "dev": "npm server.js",
+    "start": "node server.js",
+    "dev": "node server.js",
     "build": "echo 'No build step required'"
   },
   "keywords": [],
