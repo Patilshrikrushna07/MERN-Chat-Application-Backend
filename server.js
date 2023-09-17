@@ -5,6 +5,7 @@ const User = require('./models/User');
 const Message = require('./models/Message')
 const rooms = ['general', 'tech', 'finance', 'crypto'];
 const cors = require('cors');
+const { log } = require('console');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -17,7 +18,7 @@ const server = require('http').createServer(app);
 const PORT = 5001;
 const io = require('socket.io')(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: '*',
     methods: ['GET', 'POST']
   }
 })
@@ -58,9 +59,13 @@ io.on('connection', (socket)=> {
     let roomMessages = await getLastMessagesFromRoom(newRoom);
     roomMessages = sortRoomMessagesByDate(roomMessages);
     socket.emit('room-messages', roomMessages)
+    console.log(roomMessages);
   })
 
   socket.on('message-room', async(room, content, sender, time, date) => {
+    console.log(content);
+    console.log(room);
+    console.log(sender);
     const newMessage = await Message.create({content, from: sender, time, date, to: room});
     let roomMessages = await getLastMessagesFromRoom(room);
     roomMessages = sortRoomMessagesByDate(roomMessages);
