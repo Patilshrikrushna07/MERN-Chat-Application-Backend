@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm start",
+    "start": "npm server.js",
     "dev": "npm server.js",
     "build": "echo 'No build step required'"
   },
